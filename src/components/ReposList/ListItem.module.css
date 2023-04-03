@@ -1,0 +1,45 @@
+.listItem {
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.listItem:hover {
+  border: solid 1px #3690f0;
+  border-radius: 10px;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: row;
+}
+
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.description {
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #a5adbb;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #081f32;
+}
+
+.specification {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.specDescr {
+  margin-left: 5px;
+}
