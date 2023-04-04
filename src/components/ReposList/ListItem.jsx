@@ -1,8 +1,5 @@
 import React from "react";
 
-//Image
-import image from "../../assets/repo_img.jpg";
-
 //Styling
 import styles from "./ListItem.module.css";
 
@@ -17,8 +14,12 @@ const ListItem = ({ item }) => {
   return (
     <div className={styles.listItem}>
       <div className={styles.leftCol}>
-        <div className={styles.image}>
-          <img alt={item.name} src={image} />
+        <div className={styles.imageCover}>
+          <img
+            alt={item.name}
+            src={item.owner.avatar_url}
+            className={styles.image}
+          />
         </div>
         <div className={styles.description}>
           <div className={styles.title}>{capitalizeFirstLetter(item.name)}</div>

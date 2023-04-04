@@ -29,16 +29,11 @@ function App() {
       });
   }, [userInput]);
 
-  const handleInputChange = (value) => {
-    const newVal = value.length ? value : "react";
-    setUserInput(newVal);
-  };
-
   if (error) return <h1>{error}</h1>;
 
   return (
     <div className={styles.App}>
-      <MyInput handleInputChange={handleInputChange} />
+      <MyInput setUserInput={setUserInput} />
       <ReposList list={list} />
     </div>
   );

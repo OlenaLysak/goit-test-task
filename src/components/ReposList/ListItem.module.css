@@ -13,16 +13,32 @@
 .leftCol {
   display: flex;
   flex-direction: row;
+  max-width: 600px;
 }
 
 .rightCol {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  min-width: 180px;
+}
+
+.imageCover {
+  min-width: 128px;
+  height: 144px;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover; 
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .description {
-  margin-left: 10px;
+  margin-left: 20px;
   font-size: 1rem;
   color: #a5adbb;
 }
