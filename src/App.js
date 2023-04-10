@@ -5,19 +5,23 @@ import axios from "axios";
 import styles from "./App.module.css";
 
 //Components
-import ReposList from "./components/ReposList/ReposList";
-import MyInput from "./components/MyInput";
-import Pagination from "./components/Pagination";
+import ReposList from "./features/ReposList/ReposList";
+import MyInput from "./features/MyInput";
+import Pagination from "./features/Pagination";
 
 //Utils
 import { setUpUrl } from "./utils";
+
+//Redux
+import { useSelector } from "react-redux";
 
 function App() {
   const [error, setError] = useState("");
   const [list, setList] = useState([]);
   const [userInput, setUserInput] = useState("react");
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+
+  const currentPage = useSelector((state) => state.pagination.page);
 
   useEffect(() => {
     //Set up url
@@ -26,7 +30,7 @@ function App() {
       .get(url)
       .then((data) => {
         setList(data?.data.items);
-        setTotalPages(data?.data.total_count)
+        setTotalPages(data?.data.total_count);
       })
       .catch((error) => {
         setError(error);
@@ -38,7 +42,7 @@ function App() {
   return (
     <div className={styles.App}>
       <MyInput setUserInput={setUserInput} />
-      <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}>
+      <Pagination totalPages={totalPages}>
         <ReposList list={list} />
       </Pagination>
     </div>

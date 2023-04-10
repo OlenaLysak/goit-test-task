@@ -4,31 +4,18 @@ import React from "react";
 import styles from "./Pagination.module.css";
 import classNames from "classnames/bind";
 
-// //Context
-// import useMyContext from '../../context/useMyContext';
-
 //Constants
 import { PAGE_LIMIT } from "../../constants";
 
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import { nextPage, prevPage, pageByNum, selectPage } from "./paginationSlice";
+
 let cx = classNames.bind(styles);
 
-const Pagination = ({ totalPages, currentPage, setCurrentPage, children }) => {
-  function goToNextPage() {
-    setCurrentPage((page) => page + 1);
-    // setCurrentUrl(next);
-  }
-
-  function goToPreviousPage() {
-    setCurrentPage((page) => page - 1);
-    // setCurrentUrl(prev);
-  }
-
-  //43
-  function changePage(event) {
-    const pageNumber = Number(event.target.textContent);
-
-    setCurrentPage(pageNumber);
-  }
+const Pagination = ({ totalPages, children }) => {
+  const currentPage = useSelector(selectPage);
+  const dispatch = useDispatch();
 
   const getPaginationGroup = () => {
     const start = Math.floor((currentPage - 1) / PAGE_LIMIT) * PAGE_LIMIT;
@@ -44,7 +31,7 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage, children }) => {
       <div className={styles.pagination}>
         {/* previous button */}
         <button
-          onClick={goToPreviousPage}
+          onClick={() => dispatch(prevPage())}
           className={cx({ prev: true, disabled: !!(currentPage === 1) })}
         >
           prev
@@ -58,7 +45,9 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage, children }) => {
             return (
               <button
                 key={index}
-                onClick={changePage}
+                onClick={(e) =>
+                  dispatch(pageByNum(Number(e.target.textContent)))
+                }
                 className={cx({
                   paginationItem: true,
                   active: !!(currentPage === item && currentPage <= totalPages),
@@ -72,7 +61,7 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage, children }) => {
 
         {/* next button */}
         <button
-          onClick={goToNextPage}
+          onClick={() => dispatch(nextPage())}
           className={cx({
             next: true,
             disabled: !!(currentPage === totalPages),
